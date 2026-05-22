@@ -1,0 +1,66 @@
+.border-glow-root {
+      position: relative;
+      display: grid;
+      isolation: isolate;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      transform: translate3d(0, 0, 0.01px);
+      box-shadow: rgba(0, 0, 0, 0.1) 0 1px 2px, rgba(0, 0, 0, 0.1) 0 2px 4px, rgba(0, 0, 0, 0.1) 0 4px 8px, rgba(0, 0, 0, 0.1) 0 8px 16px, rgba(0, 0, 0, 0.1) 0 16px 32px, rgba(0, 0, 0, 0.1) 0 32px 64px;
+      background: var(--bg-color, #120F17);
+      border-radius: var(--border-radius, 28px);
+}
+
+.border-glow-border,
+.border-glow-fill {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      z-index: -1;
+      border: 1px solid transparent;
+}
+
+.border-glow-border {
+      background: var(--border-bg);
+      opacity: var(--border-opacity, 0);
+      mask-image: var(--border-mask-image);
+      -webkit-mask-image: var(--border-webkit-mask-image);
+      transition: var(--border-transition, opacity 0.75s ease-in-out);
+}
+
+.border-glow-fill {
+      background: var(--fill-bg);
+      opacity: var(--fill-opacity, 0);
+      mask-image: var(--fill-mask-image);
+      -webkit-mask-image: var(--fill-webkit-mask-image);
+      mask-composite: subtract, add, add, add, add, add;
+      -webkit-mask-composite: source-out, source-over, source-over, source-over, source-over, source-over;
+      mix-blend-mode: soft-light;
+      transition: var(--fill-transition, opacity 0.75s ease-in-out);
+}
+
+.border-glow-outer {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      border-radius: inherit;
+      inset: var(--outer-inset, 0);
+      mask-image: var(--outer-mask-image);
+      -webkit-mask-image: var(--outer-mask-image);
+      opacity: var(--glow-opacity, 0);
+      mix-blend-mode: plus-lighter;
+      transition: var(--outer-transition, opacity 0.75s ease-in-out);
+}
+
+.border-glow-inner {
+      position: absolute;
+      border-radius: inherit;
+      inset: var(--inner-inset, 0);
+      box-shadow: var(--inner-box-shadow);
+}
+
+.border-glow-content {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: auto;
+      z-index: 1;
+}
