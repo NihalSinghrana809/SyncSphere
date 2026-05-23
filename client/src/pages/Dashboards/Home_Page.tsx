@@ -1,6 +1,14 @@
+import { Footer } from "../../components/Auth/Footer";
+import { Header } from "../../components/Auth/Header";
+import Home_Dashboard from "../../components/Home Dashboard/Home_Dashboard";
+
 export const Home_Page = () => {
       return (
-            <div>Home_Page</div>
+            <div className="">
+                  <Header />
+                  <Home_Dashboard />
+                  <Footer />
+            </div>
       )
 }
 

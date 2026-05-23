@@ -18,7 +18,7 @@ export const SignUp_Card = () => {
                   >
                         <div className="p-8">
                               {/* Card */}
-                              <div className="bg-[#0b0e17]/80 backdrop-blur-md p-8 rounded-xl shadow-lg w-full max-w-md">
+                              <div className="bg-[#111827]/80 backdrop-blur-md p-8 rounded-xl shadow-lg w-full max-w-md">
                                     {/* Header */}
                                     <h1 className="text-3xl font-bold text-[#9bb1ff] mb-2">Join the Evolution</h1>
                                     <p className="text-gray-400 mb-6">
