@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import connectDB from "./src/config/db.js";
 import authRoutes from "./src/routes/auth.js";
+import userRoutes from "./src/routes/user.js";
 
 dotenv.config();
 
@@ -16,11 +17,9 @@ app.use((req,res,next)=>{
 		"GET,POST,PUT,DELETE,OPTIONS",
 	);
 	res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
 	if(req.method==="OPTIONS"){
 		return res.sendStatus(204);
 	}
-
 	return next();
 });
 
@@ -33,6 +32,7 @@ app.get("/", (_req,res)=>{
 });
 
 app.use("/api/auth",authRoutes);
+app.use("/api/user",userRoutes);
 
 connectDB();
 

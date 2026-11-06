@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import {z} from "zod";
 import {User} from "../models/user.models.js";
 import type {UserDocument} from "../models/user.models.js";
+import Profile from "../models/profile.model.js";
 
 export const registerSchema=z.object({
 	email:z.string().trim().email("Invalid email format"),
@@ -22,6 +23,21 @@ export const loginSchema=z.object({
 export type RegisterInput=z.infer<typeof registerSchema>;
 export type LoginInput=z.infer<typeof loginSchema>;
 
+async function ensureProfile(userId:UserDocument["_id"],username:string):Promise<void>{
+	await Profile.findOneAndUpdate(
+		{userId},
+		{
+			$setOnInsert:{
+				userId,
+				name: username,
+				username,
+				location: "",
+			},
+		},
+		{upsert:true,setDefaultsOnInsert:true},
+	);
+}
+
 export async function register(user:RegisterInput):Promise<{
 	token:string;
 	user:{id:string;email:string;username:string};
@@ -40,13 +56,14 @@ export async function register(user:RegisterInput):Promise<{
 		username: sanitizedUsername,
 		password: hashedPassword,
 	});
+	await ensureProfile(createdUser._id,createdUser.username);
 	const token=jwt.sign(
 		{
 			sub: createdUser._id.toString(),
 			email: createdUser.email,
 			username: createdUser.username,
 		},
-		process.env.JWT_SECRET||"SyncSphere-Secret",
+		process.env.JWT_SECRET||"syncsphere-secret",
 		{expiresIn:"7d"},
 	);
 	return {
@@ -76,6 +93,7 @@ export async function login(user:LoginInput):Promise<{
 	if(!isPasswordValid){
 		throw new Error("Invalid email or password");
 	}
+	await ensureProfile(foundUser._id,foundUser.username);
 	const token=jwt.sign(
 		{
 			sub: foundUser._id.toString(),
