@@ -1,10 +1,10 @@
-import {SignUpView} from "../components/auth/SignUpView";
+import {SignUpView} from "../components/pages/SignUpView";
 import type {UserProfile} from "../types/UserProfile";
 
 interface SignUpPageProps {
-	onSignUpSuccess:(user:UserProfile,token?:string)=>void;
-	onNavigateToLogin:()=>void;
-	openLegalModal?:(type:"privacy"|"terms")=>void;
+	onSignUpSuccess: (user:UserProfile,token?:string)=>void;
+	onNavigateToLogin: ()=> void;
+	openLegalModal?: (type:"privacy"|"terms")=>void;
 }
 
 export const SignUpPage=({

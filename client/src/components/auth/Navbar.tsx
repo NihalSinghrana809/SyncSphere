@@ -2,8 +2,8 @@ import React from "react";
 import {Menu, Activity, ArrowRight} from "lucide-react";
 
 interface NavbarProps {
-	currentView:"login"|"signup"|"dashboard";
-	setCurrentView:(view:"login"|"signup"|"dashboard")=>void;
+	currentView: "login"|"signup"|"dashboard";
+	setCurrentView: (view:"login"|"signup"|"dashboard")=>void;
 }
 
 export const Navbar:React.FC<NavbarProps>=({
@@ -11,7 +11,7 @@ export const Navbar:React.FC<NavbarProps>=({
 	setCurrentView,
 })=>{
 	return (
-		<header className="bg-[#0e1322]/80 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50 transition-all duration-300">
+		<header className="bg-[#0e1322] backdrop-blur-xl border-b border-white/10 sticky top-0 z-50 transition-all duration-300">
 			<nav className="flex justify-between items-center w-full px-4 sm:px-8 lg:px-16 py-3.5 max-w-360 mx-auto">
 				<button
 					type="button"

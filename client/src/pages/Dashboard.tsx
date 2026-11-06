@@ -1,10 +1,10 @@
-import {DashboardView} from "../components/dashboard/DashboardView";
+import {DashboardView} from "../components/pages/DashboardView";
 import type {UserProfile} from "../types/UserProfile";
 
 interface DashboardPageProps {
-	user:UserProfile;
-	onLogout:()=>void;
-	onReturnToLogin:()=>void;
+	user: UserProfile;
+	onLogout: ()=> void;
+	onReturnToLogin: ()=> void;
 }
 
 export const DashboardPage=({

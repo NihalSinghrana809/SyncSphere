@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {clearAuthSession, setSession, setUser} from "../features/authSlice";
 import {useUIStore} from "../features/uiStore";
@@ -30,6 +30,7 @@ export const useSyncSphereApp=()=>{
 	const navigate=useNavigate();
 	const location=useLocation();
 	const dispatch=useAppDispatch();
+	const [isRestoringSession,setIsRestoringSession]=useState(true);
 	const user=useAppSelector((state)=>state.auth.user);
 	const forgotPasswordOpen=useUIStore((state)=>state.forgotPasswordOpen);
 	const toastMessage=useUIStore((state)=>state.toastMessage);
@@ -69,7 +70,10 @@ export const useSyncSphereApp=()=>{
 	useEffect(()=>{
 		const restoreSession=async()=>{
 			const token=sessionStorage.getItem(AUTH_TOKEN_KEY);
-			if(!token) return;
+			if(!token){
+				setIsRestoringSession(false);
+				return;
+			}
 
 			try{
 				const response=await getCurrentUser(token);
@@ -80,6 +84,8 @@ export const useSyncSphereApp=()=>{
 			catch{
 				sessionStorage.removeItem(AUTH_TOKEN_KEY);
 				dispatch(clearAuthSession());
+			}finally{
+				setIsRestoringSession(false);
 			}
 		};
 
@@ -127,6 +133,7 @@ export const useSyncSphereApp=()=>{
 
 	return {
 		user,
+		isRestoringSession,
 		currentView,
 		forgotPasswordOpen,
 		toastMessage,

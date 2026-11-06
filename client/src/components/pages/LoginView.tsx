@@ -2,8 +2,8 @@ import {ArrowRight, Eye, EyeOff, Lock, Mail, ShieldCheck} from "lucide-react";
 import {useState} from "react";
 import {loginUser} from "../../lib/api";
 import type {UserProfile} from "../../types/UserProfile";
-import {AuthHeroPanel} from "./AuthHeroPanel";
-import {AuthInputField} from "./AuthInputField";
+import {AuthHeroPanel} from "../auth/HeroPanel";
+import {AuthInputField} from "../auth/InputField";
 
 interface LoginViewProps {
 	onLoginSuccess:(user:UserProfile,token?:string)=>void;

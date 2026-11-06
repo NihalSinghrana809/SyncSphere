@@ -1,15 +1,14 @@
 import {CheckCircle2} from "lucide-react";
-import {Footer} from "./components/Footer";
-import {ForgotPasswordModal} from "./components/ForgotPasswardModel";
-import {Navbar} from "./components/Navbar";
+import {Footer} from "./components/auth/Footer";
+import {Navbar} from "./components/auth/Navbar";
 import {useSyncSphereApp} from "./hooks/useSyncSphereApp";
 import {AppRoutes} from "./routes/Auth";
 
 export default function App() {
 	const {
 		user,
+		isRestoringSession,
 		currentView,
-		forgotPasswordOpen,
 		toastMessage,
 		setCurrentView,
 		setForgotPasswordOpen,
@@ -29,11 +28,10 @@ export default function App() {
 					<span>{toastMessage}</span>
 				</div>
 			)}
-
 			<Navbar currentView={currentView} setCurrentView={setCurrentView}/>
-
 			<AppRoutes
 				user={user}
+				isRestoringSession={isRestoringSession}
 				onLoginSuccess={handleLoginSuccess}
 				onSignUpSuccess={handleSignUpSuccess}
 				onLogout={handleLogout}
@@ -42,14 +40,7 @@ export default function App() {
 				onNavigateToSignUp={onNavigateToSignUp}
 				onNavigateToLogin={onNavigateToLogin}
 			/>
-
 			<Footer/>
-
-			<ForgotPasswordModal
-				isOpen={forgotPasswordOpen}
-				onClose={()=>setForgotPasswordOpen(false)}
-				onBackToLogin={()=>setForgotPasswordOpen(false)}
-			/>
 		</div>
 	);
 }

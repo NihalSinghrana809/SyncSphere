@@ -1,13 +1,13 @@
 import type {NextFunction, Request, Response} from "express";
 import jwt from "jsonwebtoken";
 
-export interface AuthPayload {
+export interface AuthPayload{
 	sub:string;
 	email:string;
 	username?:string;
 }
 
-export interface CustomRequest extends Request {
+export interface CustomRequest extends Request{
 	user?:{
 		id:string;
 		email:string;

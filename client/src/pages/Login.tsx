@@ -1,10 +1,10 @@
-import {LoginView} from "../components/auth/LoginView";
+import {LoginView} from "../components/pages/LoginView";
 import type {UserProfile} from "../types/UserProfile";
 
-interface LoginPageProps {
-	onLoginSuccess:(user:UserProfile,token?:string)=>void;
-	onNavigateToSignUp:()=>void;
-	onOpenForgotPassword:()=>void;
+interface LoginPageProps{
+	onLoginSuccess: (user:UserProfile,token?:string) => void;
+	onNavigateToSignUp: ()=> void;
+	onOpenForgotPassword: ()=> void;
 }
 
 export const LoginPage=({

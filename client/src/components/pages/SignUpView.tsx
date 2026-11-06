@@ -2,8 +2,8 @@ import {ArrowRight, Check, Eye, EyeOff, Lock, Mail, User} from "lucide-react";
 import {useState} from "react";
 import {registerUser} from "../../lib/api";
 import type {UserProfile} from "../../types/UserProfile";
-import {AuthHeroPanel} from "./AuthHeroPanel";
-import {AuthInputField} from "./AuthInputField";
+import {AuthHeroPanel} from "../auth/HeroPanel";
+import {AuthInputField} from "../auth/InputField";
 
 interface SignUpViewProps {
 	onSignUpSuccess:(user:UserProfile,token?:string)=>void;

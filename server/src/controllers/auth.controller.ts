@@ -45,3 +45,10 @@ export const getCurrentUser=async(req:CustomRequest,res:Response)=>{
 		user: req.user
 	});
 };
+
+export const logoutOne=(_req:Request,res:Response)=>{
+	res.clearCookie("token");
+	return res.status(200).json({
+		message: "Logout successful",
+	});
+};

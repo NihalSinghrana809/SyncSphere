@@ -46,7 +46,7 @@ export async function register(user:RegisterInput):Promise<{
 			email: createdUser.email,
 			username: createdUser.username,
 		},
-		process.env.JWT_SECRET||"syncsphere-secret",
+		process.env.JWT_SECRET||"SyncSphere-Secret",
 		{expiresIn:"7d"},
 	);
 	return {

@@ -6,6 +6,7 @@ import {SignUpPage} from "../pages/SignUp";
 
 interface AppRoutesProps {
 	user:UserProfile|null;
+	isRestoringSession:boolean;
 	onLoginSuccess:(user:UserProfile,token?:string)=>void;
 	onSignUpSuccess:(user:UserProfile,token?:string)=>void;
 	onLogout:()=>void;
@@ -17,6 +18,7 @@ interface AppRoutesProps {
 
 export const AppRoutes=({
 	user,
+	isRestoringSession,
 	onLoginSuccess,
 	onSignUpSuccess,
 	onLogout,
@@ -49,18 +51,9 @@ export const AppRoutes=({
 			/>
 			<Route
 				path="/dashboard"
-				element={
+				element={isRestoringSession?null:!user?<Navigate to="/" replace/>:
 					<DashboardPage
-						user={
-							user||{
-								name:"name",
-								email:"name@gmail.com",
-								tier:"Tier 1 · Elite",
-								primaryFocus:
-									"High-Intensity Sprint & Endurance",
-								dailyStreak:1,
-							}
-						}
+						user={user}
 						onLogout={onLogout}
 						onReturnToLogin={onReturnToLogin}
 					/>

@@ -1,5 +1,5 @@
 import React from "react";
-import {LogOut, Mail, Sparkles, UserCircle2} from "lucide-react";
+import {LogOut,Mail,Sparkles,UserCircle2} from "lucide-react";
 import type {UserProfile} from "../../types/UserProfile";
 
 interface DashboardViewProps {

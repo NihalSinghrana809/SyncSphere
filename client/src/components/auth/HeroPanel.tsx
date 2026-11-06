@@ -16,8 +16,8 @@ export const AuthHeroPanel:React.FC<AuthHeroPanelProps>=({
 	icon:Icon,
 })=>{
 	return (
-		<section className="relative w-full lg:w-1/2 min-h-[420px] overflow-hidden flex flex-col justify-end p-6 sm:p-10 lg:p-16">
-			<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(178,197,255,0.32),_transparent_55%)]"/>
+		<section className="relative w-full lg:w-1/2 min-h-105px overflow-hidden flex flex-col justify-end p-6 sm:p-10 lg:p-16">
+			<div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(178,197,255,0.32),transparent_55%)]"/>
 			<img
 				alt="Athlete training"
 				className="absolute inset-0 w-full h-full object-cover object-center brightness-90 contrast-105"

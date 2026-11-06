@@ -1,24 +1,24 @@
 const API_BASE_URL=import.meta.env.VITE_API_URL??"";
 
-export interface AuthUserPayload {
+export interface AuthUserPayload{
 	id:string;
 	email:string;
 	username?:string;
 }
 
-export interface LoginResponse {
+export interface LoginResponse{
 	message:string;
 	token:string;
 	user:AuthUserPayload;
 }
 
-export interface RegisterResponse {
+export interface RegisterResponse{
 	message:string;
 	token:string;
 	user:AuthUserPayload;
 }
 
-export interface CurrentUserResponse {
+export interface CurrentUserResponse{
 	user:AuthUserPayload;
 }
 
@@ -56,13 +56,13 @@ export const registerUser=(
 	email:string,
 	password:string,
 )=>
-	apiRequest<RegisterResponse>("/api/auth/signup", {
+	apiRequest<RegisterResponse>("/api/auth/signup",{
 		method:"POST",
 		body:JSON.stringify({username,email,password}),
 	});
 
 export const getCurrentUser=(token:string)=>
-	apiRequest<CurrentUserResponse>("/api/auth/me", {
+	apiRequest<CurrentUserResponse>("/api/auth/me",{
 		method:"GET",
 		headers:{
 			Authorization:`Bearer ${token}`,

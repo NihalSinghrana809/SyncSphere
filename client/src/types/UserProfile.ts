@@ -1,4 +1,4 @@
-export interface UserProfile {
+export interface UserProfile{
 	name:string;
 	email:string;
 	tier:string;

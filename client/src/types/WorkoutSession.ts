@@ -1,4 +1,4 @@
-export interface WorkoutSession {
+export interface WorkoutSession{
 	id:string;
 	title:string;
 	type:"HIIT"|"Interval Run"|"Strength"|"Cycling"|"Recovery";
