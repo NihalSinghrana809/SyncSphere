@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {z} from "zod";
-import {User} from "../models/user.models.js";
-import type {UserDocument} from "../models/user.models.js";
+import {User} from "../models/user.model.js";
+import type {UserDocument} from "../models/user.model.js";
 import Profile from "../models/profile.model.js";
 
 export const registerSchema=z.object({

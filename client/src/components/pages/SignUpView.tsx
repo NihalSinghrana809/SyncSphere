@@ -19,7 +19,6 @@ export const SignUpView:React.FC<SignUpViewProps>=({
 	const [name, setName]=useState("");
 	const [email, setEmail]=useState("");
 	const [password, setPassword]=useState("");
-	const [primaryFocus, setPrimaryFocus]=useState("HIIT & Sprint");
 	const [agreeTerms, setAgreeTerms]=useState(true);
 	const [showPassword, setShowPassword]=useState(false);
 	const [isSubmitting, setIsSubmitting]=useState(false);
@@ -63,9 +62,7 @@ export const SignUpView:React.FC<SignUpViewProps>=({
 					response.user.email.split("@")[0]||
 					name.trim(),
 				email:response.user.email,
-				tier:"Tier 1 · Starter Elite",
-				primaryFocus,
-				dailyStreak:1,
+				username:response.user.username||"",
 			};
 
 			onSignUpSuccess(authenticatedUser, response.token);
@@ -81,13 +78,6 @@ export const SignUpView:React.FC<SignUpViewProps>=({
 			setIsSubmitting(false);
 		}
 	};
-
-	const focusOptions=[
-		"HIIT & Sprint",
-		"Endurance & Running",
-		"Strength & Hypertrophy",
-		"Hybrid Performance",
-	];
 
 	return (
 		<main className="grow flex flex-col lg:flex-row min-h-[calc(100vh-140px)]">
@@ -115,7 +105,7 @@ export const SignUpView:React.FC<SignUpViewProps>=({
 					<form onSubmit={handleSubmit} className="space-y-4">
 						<AuthInputField
 							id="signup-name"
-							label="FULL NAME"
+							label="USERNAME"
 							value={name}
 							onChange={(event)=>setName(event.target.value)}
 							placeholder="name"
@@ -165,28 +155,6 @@ export const SignUpView:React.FC<SignUpViewProps>=({
 										<Eye className="w-4 h-4"/>
 									)}
 								</button>
-							</div>
-						</div>
-
-						<div className="space-y-1.5 pt-1">
-							<label className="font-inter text-xs font-semibold text-[#b2c5ff] uppercase tracking-wider block">
-								PRIMARY FOCUS
-							</label>
-							<div className="grid grid-cols-2 gap-2">
-								{focusOptions.map((opt)=>(
-									<button
-										key={opt}
-										type="button"
-										onClick={()=>setPrimaryFocus(opt)}
-										className={`text-xs font-medium py-2 px-2.5 rounded-lg border text-left transition-all truncate cursor-pointer ${
-											primaryFocus===opt
-												? "bg-[#0056d2]/30 border-[#b2c5ff] text-white shadow-[0_0_10px_rgba(178,197,255,0.2)]"
-												: "bg-[#25293a]/60 border-white/5 text-[#8d90a0] hover:text-[#dee1f7]"
-										}`}
-									>
-										{opt}
-									</button>
-								))}
 							</div>
 						</div>
 

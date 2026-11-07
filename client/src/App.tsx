@@ -7,6 +7,7 @@ import {AppRoutes} from "./routes/Auth";
 export default function App() {
 	const {
 		user,
+		token,
 		isRestoringSession,
 		currentView,
 		toastMessage,
@@ -15,6 +16,7 @@ export default function App() {
 		handleLoginSuccess,
 		handleSignUpSuccess,
 		handleLogout,
+		handleProfileUpdated,
 		onReturnToLogin,
 		onNavigateToSignUp,
 		onNavigateToLogin,
@@ -28,13 +30,19 @@ export default function App() {
 					<span>{toastMessage}</span>
 				</div>
 			)}
-			<Navbar currentView={currentView} setCurrentView={setCurrentView}/>
+			<Navbar
+				currentView={currentView}
+				isAuthenticated={Boolean(user)}
+				setCurrentView={setCurrentView}
+			/>
 			<AppRoutes
 				user={user}
+				token={token}
 				isRestoringSession={isRestoringSession}
 				onLoginSuccess={handleLoginSuccess}
 				onSignUpSuccess={handleSignUpSuccess}
 				onLogout={handleLogout}
+				onProfileUpdated={handleProfileUpdated}
 				onReturnToLogin={onReturnToLogin}
 				onOpenForgotPassword={()=>setForgotPasswordOpen(true)}
 				onNavigateToSignUp={onNavigateToSignUp}

@@ -10,19 +10,16 @@ const AUTH_TOKEN_KEY="SyncSphere";
 
 const buildProfile=(
 	user:{username?:string;email:string},
-	primaryFocus="High-Intensity Sprint & Endurance",
-	dailyStreak=1,
 ):UserProfile=>({
 	name:user.username||user.email.split("@")[0]||"Syncsphere Athlete",
 	email:user.email,
-	tier:"Tier 1 · Elite",
-	primaryFocus,
-	dailyStreak,
+	username:user.username||"",
 });
 
-const getCurrentView=(pathname:string):"login"|"signup"|"dashboard"=>{
+const getCurrentView=(pathname:string):"login"|"signup"|"dashboard"|"profile"=>{
 	if(pathname==="/signup") return "signup";
 	if(pathname==="/dashboard") return "dashboard";
+	if(pathname==="/profile") return "profile";
 	return "login";
 };
 
@@ -32,6 +29,7 @@ export const useSyncSphereApp=()=>{
 	const dispatch=useAppDispatch();
 	const [isRestoringSession,setIsRestoringSession]=useState(true);
 	const user=useAppSelector((state)=>state.auth.user);
+	const token=useAppSelector((state)=>state.auth.token);
 	const forgotPasswordOpen=useUIStore((state)=>state.forgotPasswordOpen);
 	const toastMessage=useUIStore((state)=>state.toastMessage);
 	const setForgotPasswordOpen=useUIStore((state)=>state.setForgotPasswordOpen);
@@ -40,13 +38,15 @@ export const useSyncSphereApp=()=>{
 	const currentView=getCurrentView(location.pathname);
 
 	const setCurrentView=useCallback(
-		(view:"login"|"signup"|"dashboard")=>{
+		(view:"login"|"signup"|"dashboard"|"profile")=>{
 			const nextRoute=
 				view==="login"
 					? "/"
 					:view==="signup"
 						? "/signup"
-						:"/dashboard";
+						:view==="profile"
+							? "/profile"
+							:"/dashboard";
 			navigate(nextRoute);
 		},
 		[navigate],
@@ -127,12 +127,17 @@ export const useSyncSphereApp=()=>{
 		showToast("Logged out of telemetry session.");
 	}, [clearSession, showToast]);
 
+	const handleProfileUpdated=useCallback((updatedUser:UserProfile)=>{
+		dispatch(setUser(updatedUser));
+	},[dispatch]);
+
 	const handleReturnToLogin=useCallback(()=>{
 		clearSession();
 	}, [clearSession]);
 
 	return {
 		user,
+		token,
 		isRestoringSession,
 		currentView,
 		forgotPasswordOpen,
@@ -142,6 +147,7 @@ export const useSyncSphereApp=()=>{
 		handleLoginSuccess,
 		handleSignUpSuccess,
 		handleLogout,
+		handleProfileUpdated,
 		onReturnToLogin:handleReturnToLogin,
 		onNavigateToSignUp:()=>setCurrentView("signup"),
 		onNavigateToLogin:()=>setCurrentView("login"),

@@ -2,8 +2,8 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import connectDB from "./src/config/db.js";
-import authRoutes from "./src/routes/auth.js";
-import userRoutes from "./src/routes/user.js";
+import authRoutes from "./src/routes/auth.routes.js";
+import userRoutes from "./src/routes/user.routes.js";
 
 dotenv.config();
 

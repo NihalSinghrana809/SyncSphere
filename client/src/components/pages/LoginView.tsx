@@ -44,9 +44,7 @@ export const LoginView:React.FC<LoginViewProps>=({
 					response.user.email.split("@")[0]||
 					"Syncsphere Athlete",
 				email:response.user.email,
-				tier:"Tier 1 · Elite",
-				primaryFocus:"High-Intensity Sprint & Endurance",
-				dailyStreak:18,
+				username:response.user.username||"",
 			};
 
 			onLoginSuccess(loggedInUser, response.token);

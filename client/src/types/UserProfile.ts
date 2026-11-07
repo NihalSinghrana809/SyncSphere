@@ -1,8 +1,9 @@
 export interface UserProfile{
 	name:string;
 	email:string;
-	tier:string;
+	username:string;
+	bio?:string;
 	avatarUrl?:string;
-	primaryFocus:string;
-	dailyStreak:number;
+	location?:string;
+	dateOfBirth?:string;
 }

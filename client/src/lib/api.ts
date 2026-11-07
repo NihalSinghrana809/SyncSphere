@@ -22,23 +22,59 @@ export interface CurrentUserResponse{
 	user:AuthUserPayload;
 }
 
-async function apiRequest<T>(
+export interface BackendProfile{
+	name:string;
+	username:string;
+	bio?:string;
+	avatar?:string;
+	location?:string;
+	dateOfBirth?:string|null;
+	createdAt?:string;
+	updatedAt?:string;
+}
+
+interface ProfileResponse{
+	success:boolean;
+	message:string;
+	data:BackendProfile;
+}
+
+export type ProfileUpdate={
+	name:string;
+	username:string;
+	bio:string;
+	location:string;
+	dateOfBirth:string|null;
+};
+
+export class ApiError extends Error{
+	readonly status:number;
+
+	constructor(status:number,message:string){
+		super(message);
+		this.name="ApiError";
+		this.status=status;
+	}
+}
+
+export async function apiRequest<T>(
 	path:string,
 	options:RequestInit={},
 ):Promise<T>{
 	const response=await fetch(`${API_BASE_URL}${path}`, {
+		...options,
 		headers:{
 			"Content-Type":"application/json",
-			...(options.headers || {}),
+			...(options.headers||{}),
 		},
-		...options,
 	});
 
 	const payload=await response.json().catch(()=>null);
 
 	if(!response.ok){
-		throw new Error(
-			payload?.message || "Something went wrong. Please try again.",
+		throw new ApiError(
+			response.status,
+			payload?.message||"Something went wrong. Please try again.",
 		);
 	}
 
@@ -67,4 +103,21 @@ export const getCurrentUser=(token:string)=>
 		headers:{
 			Authorization:`Bearer ${token}`,
 		},
+	});
+
+export const getMyProfile=(token:string)=>
+	apiRequest<ProfileResponse>("/api/user/me",{
+		method:"GET",
+		headers:{
+			Authorization:`Bearer ${token}`,
+		},
+	});
+
+export const updateMyProfile=(token:string,profile:ProfileUpdate)=>
+	apiRequest<ProfileResponse>("/api/user/me",{
+		method:"PATCH",
+		headers:{
+			Authorization:`Bearer ${token}`,
+		},
+		body:JSON.stringify(profile),
 	});
